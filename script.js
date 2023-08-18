@@ -3,12 +3,21 @@ const form = document.querySelector('form');
 const inputWeight = document.querySelector('#weight');
 const inputHeight = document.querySelector('#height');
 
-const modalWrapper = document.querySelector('.modal-wrapper');
-const modalMessage = document.querySelector('.modal .title span');
-const modalBtnClose = document.querySelector('.modal button.close');
+//Estrutura de dados object literals
+const Modal = {
+  wrapper: document.querySelector('.modal-wrapper'),
+  message: document.querySelector('.modal .title span'),
+  btnClose: document.querySelector('.modal button.close'), 
+
+  open() {
+    this.wrapper.classList.add('open');
+  },
+  close() {
+    this.wrapper.classList.remove('open');
+  }
+}
 
 // 3 maneiras de criar e atribuir função a um evento
-
 //1
 form.onsubmit = function(event) {
   event.preventDefault();
@@ -19,16 +28,16 @@ form.onsubmit = function(event) {
   const result = IMC(weight, height);
   const message = `Seu IMC é de ${result}`;
   
-  modalMessage.innerText = message;
-  modalWrapper.classList.add('open');
+  Modal.message.innerText = message;
+  Modal.open();
 };
 // 2
 // form.onsubmit = () => {};
 // 3
 // form.onsubmit = handleSubmit;
 
-modalBtnClose.onclick = () => {
-  modalWrapper.classList.remove('open');
+Modal.btnClose.onclick = () => {
+  Modal.close();
 }
 
 function IMC(weight, height) {
